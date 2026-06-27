@@ -1,7 +1,7 @@
 {
   "cli": {
     "version": ">= 16.0.0",
-    "appVersionSource": "remote"
+    "appVersionSource": "local"
   },
   "build": {
     "development": {
@@ -31,9 +31,10 @@
       }
     },
     "production": {
-      "autoIncrement": true,
       "env": {
-        "EXPO_PUBLIC_USE_TEST_ADS": "false"
+        "EXPO_PUBLIC_USE_TEST_ADS": "false",
+        "EXPO_PUBLIC_ADMOB_IOS_APP_ID": "ca-app-pub-8467690981019689~3406241583",
+        "EXPO_PUBLIC_ADMOB_BANNER_IOS": "ca-app-pub-8467690981019689/7232930247"
       },
       "ios": {
         "resourceClass": "m-medium"
@@ -46,9 +47,9 @@
   "submit": {
     "production": {
       "ios": {
-        "appleId": "your-apple-id@example.com",
-        "ascAppId": "0000000000",
-        "appleTeamId": "XXXXXXXXXX"
+        "appleId": "u25192020@outlook.jp",
+        "appleTeamId": "9FDDTNHXBF",
+        "ascAppId": "6781900357"
       },
       "android": {
         "serviceAccountKeyPath": "./google-play-service-account.json",

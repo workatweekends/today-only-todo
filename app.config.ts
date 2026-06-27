@@ -6,7 +6,7 @@ const admobAndroidAppId =
 const config = {
   name: '今日だけToDo',
   slug: 'today-only-todo',
-  version: '1.0.0',
+  version: '1.0.1',
   orientation: 'portrait',
   icon: './assets/icon.png',
   userInterfaceStyle: 'automatic',
@@ -23,7 +23,7 @@ const config = {
   ios: {
     supportsTablet: false,
     bundleIdentifier: 'com.todayonlytodo.app',
-    buildNumber: '1',
+    buildNumber: '8',
     infoPlist: {
       CFBundleDisplayName: '今日だけToDo',
       ITSAppUsesNonExemptEncryption: false,
@@ -31,7 +31,7 @@ const config = {
   },
   android: {
     package: 'com.todayonlytodo.app',
-    versionCode: 1,
+    versionCode: 2,
     softwareKeyboardLayoutMode: 'resize',
     adaptiveIcon: {
       backgroundColor: '#3B82F6',
