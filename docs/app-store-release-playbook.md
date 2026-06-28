@@ -258,15 +258,75 @@ Banner ads are displayed at the bottom via Google AdMob.
 
 ---
 
-## 更新リリース
+## 公開済みアプリの更新リリース
+
+今日だけToDoはすでにApp Store公開済みのため、今後は「新規公開」ではなく更新リリースとして進める。
+
+### 1. 変更内容を確認する
+
+```bash
+git status --short
+npx tsc --noEmit
+```
+
+必要に応じて、実機またはシミュレータで表示・動作を確認する。
+
+```bash
+npm run start:dev
+npx expo run:ios
+```
+
+### 2. バージョンを上げる
+
+`app.config.ts` を更新する。
+
+```ts
+version: '1.0.2',
+ios: {
+  buildNumber: '9',
+}
+```
+
+`appVersionSource` が `local` の場合は、ローカルの `version` / `buildNumber` が提出対象になる。すでにApp Storeに出したbuildNumberと同じ番号は使えない。
+
+### 3. productionビルドを作る
 
 ```bash
 eas build --profile production --platform ios
+```
+
+広告ID、アイコン、Info.plist、ネイティブプラグイン設定を変えた場合は、必ず新しいproduction buildが必要。
+
+### 4. App Store Connectへ提出する
+
+```bash
 eas submit --profile production --platform ios
 ```
 
-`appVersionSource` が `local` の場合は、`app.config.ts` の `version` / `buildNumber` を更新してからビルドする。
-`appVersionSource` が `remote` かつ `autoIncrement` を使う場合は、EAS側の運用に合わせる。
+提出後、App Store Connectで処理が完了するまで数分から30分程度待つ。
+
+### 5. App Store Connectで新しいバージョンを作成する
+
+1. App Store Connectの対象アプリを開く
+2. 新しいiOSバージョンを作成する
+3. 新しいビルドを選択する
+4. 変更点、スクリーンショット、プライバシー情報に変更があれば更新する
+5. 審査へ送信する
+
+### 6. 審査後にリリースする
+
+- 手動リリースの場合: 承認後に「このバージョンをリリース」を押す
+- 自動リリースの場合: 承認後に自動で公開される
+
+### app-ads.txtだけを更新する場合
+
+`app-ads.txt` はWeb上の公開ファイルなので、App Storeの再審査は不要。
+
+```text
+https://YOUR_DOMAIN/app-ads.txt
+```
+
+ファイルを公開後、AdMob側のクロールとステータス反映を待つ。AdMob画面に確認ボタンが表示される場合は押す。表示されない場合は、広告リクエストが発生し、AdMobがクロール結果を表示するまで待つ。
 
 ---
 
@@ -279,7 +339,7 @@ https://YOUR_DOMAIN/app-ads.txt
 ```
 
 今日だけToDoでは 2026-06-27 時点で公開URLから `200 OK` で取得できることを確認済み。
-残る作業はAdMob管理画面の再確認ボタンを押し、再クロール結果を待つこと。
+2026-06-28時点のAdMob画面では「app-ads.txt を含む広告リクエストがありません」と表示され、手動の更新確認ボタンは表示されていない。AdMobの案内上は、app-ads.txtを公開後、クロールとステータス確認まで少なくとも24時間待つ必要がある。
 
 ---
 

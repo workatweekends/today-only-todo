@@ -87,9 +87,19 @@ https://workatweekends.github.io/app-ads.txt
 
 ---
 
-## 7. リリース手順
+## 7. 公開済みアプリの更新手順
 
 詳細は `docs/app-store-release-playbook.md` を参照。
+
+### 通常の更新リリース
+
+1. 変更内容を実装する
+2. `npx tsc --noEmit` を通す
+3. `app.config.ts` の `version` と `ios.buildNumber` を上げる
+4. 必要に応じてスクリーンショット、説明文、プライバシー申告を更新する
+5. EASでproductionビルドを作る
+6. App Store Connectへsubmitする
+7. App Store Connectで新しいバージョンを作成し、ビルドを選んで審査へ送る
 
 ```bash
 eas build --profile production --platform ios
@@ -97,6 +107,19 @@ eas submit --profile production --platform ios
 ```
 
 設定変更後は必ず再ビルド・再提出する。
+
+### 広告・アイコン・ネイティブ設定を変えた場合
+
+- `app.config.ts`
+- `eas.json`
+- `assets/icon.png`
+- `react-native-google-mobile-ads` 関連設定
+
+上記を変更した場合は、Expoの再起動だけでは反映されない。必ず新しいEAS production buildを作り、App Store Connectに提出する。
+
+### app-ads.txt の扱い
+
+`app-ads.txt` はアプリ本体のバイナリではなく公開Webファイルなので、ファイル更新だけならApp Store再審査は不要。ただしAdMob側のクロール反映には時間がかかる。
 
 ---
 
